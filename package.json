@@ -12,16 +12,22 @@
     "prepare": "panda codegen"
   },
   "dependencies": {
+    "@iconify-json/octicon": "^1.2.0",
+    "@octokit/rest": "^21.0.2",
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",
     "@remix-run/serve": "^2.11.2",
+    "date-fns": "^3.6.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "valibot": "^0.41.0"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.45.2",
     "@remix-run/dev": "^2.11.2",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
@@ -34,7 +40,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.38",
+    "prettier": "^3.3.3",
     "typescript": "^5.1.6",
+    "unplugin-icons": "^0.19.3",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
