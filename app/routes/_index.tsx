@@ -4,6 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { parseISO, formatDistance } from "date-fns";
 import { config } from "~/config";
 import { ContributionActivity } from "~/components/ContributionActivity";
+import { Hero } from "~/components/Hero";
 
 const getType = (
   item: RestEndpointMethodTypes["search"]["issuesAndPullRequests"]["response"]["data"]["items"][number],
@@ -74,7 +75,8 @@ export default function Index() {
   const { items } = data;
 
   return (
-    <div className="font-sans p-4">
+    <div>
+      <Hero />
       {items.map((item) => {
         return (
           <ContributionActivity
