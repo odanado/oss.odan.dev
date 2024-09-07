@@ -34,6 +34,8 @@ const getIcon = (type: Props["type"]) => {
   }
 };
 
+// > We recommend that you avoid relying on runtime values for your styles . Consider using recipes, css variables or data-* attributes instead.
+// > https://panda-css.com/docs/guides/dynamic-styling
 const icon = cva({
   base: {
     fontSize: "sm",
