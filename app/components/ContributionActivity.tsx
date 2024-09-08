@@ -29,7 +29,7 @@ export const ContributionActivity = ({
     <styled.div display="flex" gap={3}>
       <styled.img
         src={repo.icon}
-        alt="repo icon"
+        alt={`a icon of ${repo.owner}`}
         width={12}
         height={12}
         borderRadius="full"
