@@ -6,6 +6,8 @@ import { config } from "~/config";
 import { ContributionActivity } from "~/components/ContributionActivity";
 import { Hero } from "~/components/Hero";
 
+import { styled } from "~/styled-system/jsx";
+
 const getType = (
   item: RestEndpointMethodTypes["search"]["issuesAndPullRequests"]["response"]["data"]["items"][number],
 ) => {
@@ -53,6 +55,7 @@ export const loader = async () => {
         number: item.number,
         createdAtAgo,
         type,
+        link: item.html_url,
         repo: {
           owner: repoOwner ?? "",
           name: repoName ?? "",
@@ -75,20 +78,31 @@ export default function Index() {
   const { items } = data;
 
   return (
-    <div>
-      <Hero />
-      {items.map((item) => {
-        return (
-          <ContributionActivity
-            key={item.id}
-            title={item.title}
-            type={item.type}
-            repo={item.repo}
-            number={item.number}
-            createdAtAgo={item.createdAtAgo}
-          />
-        );
-      })}
-    </div>
+    <styled.main
+      maxWidth="4xl"
+      marginX="auto"
+      position="relative"
+      paddingX={{ base: 4, md: 6, lg: 8 }}
+      pt="10"
+    >
+      <styled.div display="flex" flexDirection="column" gap={10}>
+        <Hero />
+        <styled.div display="flex" flexDirection="column" gap={6}>
+          {items.map((item) => {
+            return (
+              <ContributionActivity
+                key={item.id}
+                title={item.title}
+                type={item.type}
+                repo={item.repo}
+                number={item.number}
+                link={item.link}
+                createdAtAgo={item.createdAtAgo}
+              />
+            );
+          })}
+        </styled.div>
+      </styled.div>
+    </styled.main>
   );
 }
