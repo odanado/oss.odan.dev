@@ -2,5 +2,5 @@
 // by running `wrangler types`
 
 interface Env {
-	GITHUB_TOKEN: string;
+  GITHUB_TOKEN: string;
 }
