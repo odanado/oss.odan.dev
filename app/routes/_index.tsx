@@ -36,8 +36,11 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "odan is Contributing" },
+    {
+      name: "description",
+      content: "@odanado's recent issues and pull requests on GitHub",
+    },
   ];
 };
 
