@@ -1,8 +1,7 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { Octokit, type RestEndpointMethodTypes } from "@octokit/rest";
 import { useLoaderData } from "@remix-run/react";
 import { parseISO, formatDistance } from "date-fns";
-import { config } from "~/config";
 import { ContributionActivity } from "~/components/ContributionActivity";
 import { Hero } from "~/components/Hero";
 
@@ -28,13 +27,17 @@ const getType = (
   return `issue-${suffix}` as const;
 };
 
-export const loader = async () => {
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  const githubToken = context.cloudflare.env.GITHUB_TOKEN;
+
+  console.log("githubToken is defined", githubToken !== undefined);
+
   const octokit = new Octokit({
-    auth: config.githubToken,
+    auth: githubToken,
   });
 
   const { data } = await octokit.search.issuesAndPullRequests({
-    q: "author:odanado archived:false -user:odanado -user:odan-sandbox is:public ",
+    q: "author:odanado archived:false -user:odanado -user:odan-sandbox is:public is:pull-request",
   });
 
   const now = new Date();

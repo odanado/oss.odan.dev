@@ -4,21 +4,24 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
+    "start": "wrangler pages dev ./build/client",
+    "build": "remix vite:build",
+    "deploy": "wrangler pages deploy",
     "typecheck": "tsc",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "panda codegen"
+    "prepare:typegen": "wrangler types",
+    "prepare:panda": "panda codegen",
+    "prepare": "npm run prepare:typegen && npm run prepare:panda"
   },
   "dependencies": {
     "@iconify-json/octicon": "^1.2.0",
     "@octokit/rest": "^21.0.2",
-    "@remix-run/node": "^2.11.2",
+    "@remix-run/cloudflare": "^2.11.2",
+    "@remix-run/cloudflare-pages": "^2.11.2",
     "@remix-run/react": "^2.11.2",
-    "@remix-run/serve": "^2.11.2",
     "date-fns": "^3.6.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
@@ -26,6 +29,7 @@
     "valibot": "^0.41.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240903.0",
     "@pandacss/dev": "^0.45.2",
     "@remix-run/dev": "^2.11.2",
     "@svgr/core": "^8.1.0",
@@ -46,7 +50,8 @@
     "typescript": "^5.1.6",
     "unplugin-icons": "^0.19.3",
     "vite": "^5.1.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "wrangler": "^3.75.0"
   },
   "engines": {
     "node": ">=20.0.0"

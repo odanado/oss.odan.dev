@@ -8,7 +8,6 @@ import {
 import styles from "./index.css?url";
 import type { LinksFunction } from "@remix-run/node";
 
-console.log({ styles });
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export function Layout({ children }: { children: React.ReactNode }) {

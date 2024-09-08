@@ -9,3 +9,5 @@ styled-system
 styled-system-studio
 
 .envrc
+.dev.vars
+.wrangler
