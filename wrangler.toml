@@ -2,3 +2,7 @@
 name = "oss-odan-dev"
 compatibility_date = "2024-09-03"
 pages_build_output_dir = "./build/client"
+
+[[kv_namespaces]]
+binding = "cache"
+id = "eb2d2cdc8c4e42eab7d5eb604737494a"
