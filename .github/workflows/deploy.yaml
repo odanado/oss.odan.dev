@@ -17,7 +17,10 @@ jobs:
           node-version-file: ./.node-version
           cache: "npm"
 
+      - run: cp .dev.vars.example .dev.vars # XXX:
+
       - run: npm ci
+
       - run: npm run build
 
       - name: Deploy
