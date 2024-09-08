@@ -32,6 +32,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240903.0",
     "@pandacss/dev": "^0.45.2",
+    "@pandacss/eslint-plugin": "^0.1.9",
     "@remix-run/dev": "^2.11.2",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",

@@ -41,7 +41,7 @@ const icon = cva({
     fontSize: "sm",
   },
   variants: {
-    color: {
+    type: {
       "issue-open": {
         color: "github-open",
       },
@@ -68,7 +68,7 @@ const IconSpan = styled("span", icon);
 
 export const ContributionIcon = ({ type }: Props) => {
   return (
-    <IconSpan fontSize="sm" color={type}>
+    <IconSpan fontSize="sm" type={type}>
       {getIcon(type)}
     </IconSpan>
   );
