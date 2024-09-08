@@ -81,7 +81,7 @@ const fetchIssuesOrPullRequests = async ({
     {
       key: cacheKey,
       kv,
-      ttlSeconds: 60,
+      ttlSeconds: 60 * 60, // 1 hour
     },
   );
 
