@@ -1,12 +1,13 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { Octokit } from "@octokit/rest";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
+
 import { ContributionActivity } from "~/components/ContributionActivity";
 import { Hero } from "~/components/Hero";
-
 import { styled } from "~/styled-system/jsx";
-import { fetchPullRequests } from "~/api/github";
+import { fetchIssues, fetchPullRequests } from "~/api/github";
 import { Footer } from "~/components/Footer";
+import { ActivityTabs, ActivityTabsContent } from "~/components/ActivityTabs";
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
   const githubToken = context.cloudflare.env.GITHUB_TOKEN;
@@ -17,15 +18,19 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     auth: githubToken,
   });
 
-  const { activities, lastFetched, lastUpdated } = await fetchPullRequests({
+  const pullRequestData = await fetchPullRequests({
+    octokit,
+    kv: context.cloudflare.env.cache,
+  });
+
+  const issueData = await fetchIssues({
     octokit,
     kv: context.cloudflare.env.cache,
   });
 
   return {
-    items: activities,
-    lastFetched,
-    lastUpdated,
+    pullRequestData,
+    issueData,
   };
 };
 
@@ -37,8 +42,19 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
-  const { items, lastFetched, lastUpdated } = data;
+  const { pullRequestData, issueData } = useLoaderData<typeof loader>();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentActivity = searchParams.get("activity") ?? "issues";
+
+  const lastFetched =
+    currentActivity === "pull-requests"
+      ? pullRequestData.lastFetched
+      : issueData.lastFetched;
+  const lastUpdated =
+    currentActivity === "pull-requests"
+      ? pullRequestData.lastUpdated
+      : issueData.lastUpdated;
 
   return (
     <styled.div
@@ -52,25 +68,49 @@ export default function Index() {
       px={{ base: 4, md: 6, lg: 8 }}
       py="10"
     >
-      <styled.main>
-        <styled.div display="flex" flexDirection="column" gap={10}>
-          <Hero />
-          <styled.div display="flex" flexDirection="column" gap={6}>
-            {items.map((item) => {
-              return (
-                <ContributionActivity
-                  key={item.id}
-                  title={item.title}
-                  type={item.type}
-                  repo={item.repo}
-                  number={item.number}
-                  link={item.link}
-                  createdAtAgo={item.createdAtAgo}
-                />
-              );
-            })}
-          </styled.div>
-        </styled.div>
+      <styled.main display="flex" flexDirection="column" gap={10} w="full">
+        <Hero />
+        <ActivityTabs
+          defaultValue={currentActivity}
+          onValueChange={(value) => {
+            setSearchParams({ activity: value });
+          }}
+        >
+          <ActivityTabsContent value="issues">
+            <styled.div display="flex" flexDirection="column" gap={6}>
+              {issueData.activities.map((activity) => {
+                return (
+                  <ContributionActivity
+                    key={activity.id}
+                    title={activity.title}
+                    type={activity.type}
+                    repo={activity.repo}
+                    number={activity.number}
+                    link={activity.link}
+                    createdAtAgo={activity.createdAtAgo}
+                  />
+                );
+              })}
+            </styled.div>
+          </ActivityTabsContent>
+          <ActivityTabsContent value="pull-requests">
+            <styled.div display="flex" flexDirection="column" gap={6}>
+              {pullRequestData.activities.map((activity) => {
+                return (
+                  <ContributionActivity
+                    key={activity.id}
+                    title={activity.title}
+                    type={activity.type}
+                    repo={activity.repo}
+                    number={activity.number}
+                    link={activity.link}
+                    createdAtAgo={activity.createdAtAgo}
+                  />
+                );
+              })}
+            </styled.div>
+          </ActivityTabsContent>
+        </ActivityTabs>
       </styled.main>
       <Footer lastFetched={lastFetched} lastUpdated={lastUpdated} />
     </styled.div>

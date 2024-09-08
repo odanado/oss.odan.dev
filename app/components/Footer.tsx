@@ -11,10 +11,10 @@ export const Footer = ({ lastFetched, lastUpdated }: Props) => {
     <styled.footer display="flex" flexDir="column" alignItems="center">
       <styled.div display="flex" gap="1">
         <styled.span color="gray.500">Last activity</styled.span>
-        <TimeAgo date={lastUpdated} color="gray.700" />
+        <TimeAgo date={lastUpdated} />
         <styled.span mx="2">|</styled.span>
         <styled.span color="gray.500">Last fetched</styled.span>
-        <TimeAgo date={lastFetched} color="gray.700" />
+        <TimeAgo date={lastFetched} />
       </styled.div>
     </styled.footer>
   );

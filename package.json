@@ -17,6 +17,7 @@
     "prepare": "npm run prepare:typegen && npm run prepare:panda"
   },
   "dependencies": {
+    "@ark-ui/react": "^3.10.0",
     "@iconify-json/octicon": "^1.2.0",
     "@octokit/rest": "^21.0.2",
     "@remix-run/cloudflare": "^2.11.2",
