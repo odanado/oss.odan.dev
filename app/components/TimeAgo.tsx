@@ -18,7 +18,7 @@ const UnstyledTimeAge = ({
 
   return (
     <styled.time dateTime={_date.toISOString()} color="gray.800">
-      {formatTimeAgo(date, { now: _now })}
+      hoge {formatTimeAgo(date, { now: _now })}
     </styled.time>
   );
 };
