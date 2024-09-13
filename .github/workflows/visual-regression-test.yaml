@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./.node-version
+          cache: "npm"
+
+      - run: cp .dev.vars.example .dev.vars # XXX:
+
+      - run: npm ci
+
+      - run: node --run build:storybook
+
+      - run: node --run screenshot:storybook
+
+      - uses: reg-viz/reg-actions@v2
+        with:
+          image-directory-path: "__screenshots__"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"

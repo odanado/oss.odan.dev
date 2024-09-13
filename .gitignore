@@ -11,3 +11,7 @@ styled-system-studio
 .envrc
 .dev.vars
 .wrangler
+
+*storybook.log
+storybook-static
+__screenshots__
