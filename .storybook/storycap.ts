@@ -17,3 +17,13 @@ export const tablet: ScreenshotOptions["variants"] = {
     viewport: "iPad Pro 11 landscape",
   },
 };
+
+export const desktop = {
+  desktop: {
+    viewport: {
+      width: 1280,
+      height: 800,
+      isMobile: false,
+    },
+  },
+} satisfies ScreenshotOptions["variants"];

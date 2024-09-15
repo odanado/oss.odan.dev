@@ -4,9 +4,6 @@ import { Hero } from "./Hero";
 const meta = {
   title: "Hero",
   component: Hero,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof Hero>;
 

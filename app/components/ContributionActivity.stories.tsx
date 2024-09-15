@@ -6,7 +6,6 @@ const meta = {
   title: "ContributionActivity",
   component: ContributionActivity,
   parameters: {
-    layout: "centered",
     screenshot: {
       variants: {
         ...smallMobile,
@@ -33,6 +32,21 @@ export const Default: Story = {
       icon,
     },
     createdAtAgo: "1 day ago",
+    type: "issue-open",
+    number: 1,
+    link: "#",
+  },
+};
+
+export const AlmostThreeYearsAgo: Story = {
+  args: {
+    title: "issue or pull request title",
+    repo: {
+      owner: "owner",
+      name: "repo",
+      icon,
+    },
+    createdAtAgo: "almost 3 years ago",
     type: "issue-open",
     number: 1,
     link: "#",

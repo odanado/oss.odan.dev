@@ -4,9 +4,6 @@ import { ActivityTabs } from "./ActivityTabs";
 const meta = {
   title: "ActivityTabs",
   component: ActivityTabs,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof ActivityTabs>;
 

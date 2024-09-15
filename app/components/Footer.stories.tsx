@@ -5,9 +5,6 @@ import { Footer } from "./Footer";
 const meta = {
   title: "Footer",
   component: Footer,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof Footer>;
 

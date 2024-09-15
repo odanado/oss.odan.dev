@@ -4,9 +4,6 @@ import { ContributionIcon } from "./ContributionIcon";
 const meta = {
   title: "ContributionIcon",
   component: ContributionIcon,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof ContributionIcon>;
 
