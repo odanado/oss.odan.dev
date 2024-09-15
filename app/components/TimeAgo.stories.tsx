@@ -5,9 +5,6 @@ import { TimeAgo } from "./TimeAgo";
 const meta = {
   title: "TimeAgo",
   component: TimeAgo,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof TimeAgo>;
 
