@@ -64,7 +64,7 @@ const fetchIssuesOrPullRequests = async ({
       const lastFetched = new Date().getTime();
       const { data } = await octokit.search.issuesAndPullRequests({
         q:
-          "author:odanado archived:false -user:odanado -user:odan-sandbox is:public " +
+          "author:odanado archived:false -user:odanado -user:odan-sandbox is:public -user:line" +
           query,
       });
 
