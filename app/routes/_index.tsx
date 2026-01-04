@@ -11,9 +11,6 @@ import { ActivityTabs, ActivityTabsContent } from "~/components/ActivityTabs";
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
   const githubToken = context.cloudflare.env.GITHUB_TOKEN;
-
-  console.log("githubToken is defined", githubToken !== undefined);
-
   const octokit = new Octokit({
     auth: githubToken,
   });
