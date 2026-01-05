@@ -10,6 +10,9 @@ export default defineConfig({
   // Enable React to support React JSX components.
   integrations: [react()],
   vite: {
-    plugins: [Icons({ compiler: "jsx", jsx: "react" })],
+    plugins: [
+      // @ts-expect-error
+      Icons({ compiler: "jsx", jsx: "react" }),
+    ],
   },
 });
