@@ -1,7 +1,16 @@
 import type { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
+import { parseISO } from "date-fns";
 
-import { createCacheHandler } from "./cache";
-import { formatTimeAgo } from "~/utils/format-time-ago";
+import { formatTimeAgo } from "../utils/format-time-ago";
+
+type Activity = ReturnType<typeof convertToActivity>;
+
+export type Contributions = {
+  lastFetched: number;
+  lastUpdated: number;
+  pullRequests: Activity[];
+  issues: Activity[];
+};
 
 const getType = (
   item: RestEndpointMethodTypes["search"]["issuesAndPullRequests"]["response"]["data"]["items"][number],
@@ -37,6 +46,7 @@ const convertToActivity = (
     title: item.title,
     number: item.number,
     createdAtAgo,
+    createdAt: parseISO(item.created_at),
     type,
     link: item.html_url,
     repo: {
@@ -48,78 +58,45 @@ const convertToActivity = (
 };
 
 const fetchIssuesOrPullRequests = async ({
-  cacheKey,
   query,
   octokit,
-  kv,
 }: {
-  cacheKey: string;
   query: string;
-
   octokit: Octokit;
-  kv: KVNamespace;
 }) => {
-  const cacheHandler = createCacheHandler(
-    async () => {
-      const lastFetched = new Date().getTime();
-      const { data } = await octokit.search.issuesAndPullRequests({
-        q:
-          "author:odanado archived:false -user:odanado -user:odan-sandbox is:public " +
-          query,
-      });
-
-      const lastUpdated = new Date(data.items[0].created_at).getTime();
-
-      const activities = data.items.map(convertToActivity);
-
-      return {
-        lastFetched,
-        lastUpdated,
-        activities,
-      };
-    },
-    {
-      key: cacheKey,
-      kv,
-      ttlSeconds: 60 * 60, // 1 hour
-    },
-  );
-
-  const { activities, lastFetched, lastUpdated } = await cacheHandler();
-
-  return {
-    activities,
-    lastFetched,
-    lastUpdated,
-  };
+  const { data } = await octokit.search.issuesAndPullRequests({
+    q:
+      "author:odanado archived:false -user:odanado -user:odan-sandbox is:public " +
+      query,
+  });
+  return data.items.map(convertToActivity);
 };
 
-export async function fetchPullRequests({
+export async function fetchContributions({
   octokit,
-  kv,
 }: {
   octokit: Octokit;
-  kv: KVNamespace;
-}) {
-  return fetchIssuesOrPullRequests({
-    cacheKey: "pull-requests",
+}): Promise<Contributions> {
+  const lastFetched = new Date().getTime();
+
+  const pullRequests = await fetchIssuesOrPullRequests({
     query: "is:pr",
     octokit,
-    kv,
   });
-}
-
-export async function fetchIssues({
-  octokit,
-  kv,
-}: {
-  octokit: Octokit;
-  kv: KVNamespace;
-}) {
-  return fetchIssuesOrPullRequests({
-    cacheKey: "issues",
+  const issues = await fetchIssuesOrPullRequests({
     query: "is:issue",
     octokit,
-    kv,
   });
+
+  const lastUpdated = Math.max(
+    pullRequests[0].createdAt.getTime(),
+    issues[0].createdAt.getTime(),
+  );
+
+  return {
+    lastFetched,
+    lastUpdated,
+    pullRequests,
+    issues,
+  };
 }

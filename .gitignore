@@ -15,3 +15,6 @@ styled-system-studio
 *storybook.log
 storybook-static
 __screenshots__
+
+.astro
+dist

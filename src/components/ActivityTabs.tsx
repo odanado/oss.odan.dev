@@ -1,5 +1,5 @@
 import { Tabs } from "@ark-ui/react";
-import { styled } from "~/styled-system/jsx";
+import { styled } from "../styled-system/jsx";
 
 import OcticonIssueOpened16 from "~icons/octicon/issue-opened-16";
 import OcticonGitPullRequest16 from "~icons/octicon/git-pull-request-16";

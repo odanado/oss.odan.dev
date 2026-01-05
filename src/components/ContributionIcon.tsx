@@ -1,5 +1,5 @@
-import { styled } from "~/styled-system/jsx";
-import { cva } from "~/styled-system/css";
+import { styled } from "../styled-system/jsx";
+import { cva } from "../styled-system/css";
 
 import OcticonIssueClosed16 from "~icons/octicon/issue-closed-16";
 import OcticonIssueOpened16 from "~icons/octicon/issue-opened-16";

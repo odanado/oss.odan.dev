@@ -1,6 +1,6 @@
 import { parseISO } from "date-fns";
-import { styled } from "~/styled-system/jsx";
-import { formatTimeAgo } from "~/utils/format-time-ago";
+import { styled } from "../styled-system/jsx";
+import { formatTimeAgo } from "../utils/format-time-ago";
 
 const UnstyledTimeAge = ({
   date,
