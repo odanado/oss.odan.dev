@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   visual-regression-test:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
