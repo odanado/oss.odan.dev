@@ -5,7 +5,7 @@ export default defineConfig({
   preflight: true,
 
   // Where to look for your css declarations
-  include: ["./app/**/*.{js,jsx,ts,tsx}"],
+  include: ["./src/**/*.{js,jsx,ts,tsx}"],
 
   // Files to exclude
   exclude: [],
@@ -25,6 +25,6 @@ export default defineConfig({
   },
 
   // The output directory for your css system
-  outdir: "app/styled-system",
+  outdir: "src/styled-system",
   jsxFramework: "react",
 });

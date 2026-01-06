@@ -1,4 +1,4 @@
-import { styled } from "~/styled-system/jsx";
+import { styled } from "../styled-system/jsx";
 import { TimeAgo } from "./TimeAgo";
 
 type Props = {

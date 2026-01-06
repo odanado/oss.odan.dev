@@ -1,0 +1,18 @@
+---
+import { Octokit } from "@octokit/rest";
+
+import DefaultLayout from "../layouts/default.astro";
+import { Root } from "../components/Root";
+import { fetchContributions } from "../lib/github";
+
+const githubToken = import.meta.env.GITHUB_TOKEN;
+const octokit = new Octokit({
+  auth: githubToken,
+});
+
+const contributions = await fetchContributions({ octokit });
+---
+
+<DefaultLayout>
+  <Root client:load contributions={contributions} />
+</DefaultLayout>

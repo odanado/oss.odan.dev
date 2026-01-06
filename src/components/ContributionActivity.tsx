@@ -1,7 +1,7 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
-import { styled } from "~/styled-system/jsx";
-import { ContributionIcon } from "~/components/ContributionIcon";
+import { styled } from "../styled-system/jsx";
+import { ContributionIcon } from "./ContributionIcon";
 import { ExternalLink } from "./ExternalLink";
 
 type Props = {
