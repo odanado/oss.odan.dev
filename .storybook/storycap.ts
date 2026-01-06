@@ -1,4 +1,4 @@
-import { ScreenshotOptions } from "storycap";
+import type { ScreenshotOptions } from "storycap";
 
 export const smallMobile: ScreenshotOptions["variants"] = {
   smallMobile: {
